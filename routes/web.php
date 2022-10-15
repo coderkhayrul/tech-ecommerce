@@ -135,6 +135,9 @@ Route::post('/admin/update/category/{id}', [CategoryController::class, 'updateca
 Route::get('/admin/all/user', [UserRoleController::class, 'userRole'])->name('admin.all.users');
 Route::get('/admin/create/admin', [UserRoleController::class, 'createUser'])->name('create.admin');
 Route::post('/admin/store/admin', [UserRoleController::class, 'storeUser'])->name('admin.store');
+Route::get('/admin/edit/admin/{id}', [UserRoleController::class, 'editUser'])->name('admin.edit');
+Route::post('/admin/update/admin/{id}', [UserRoleController::class, 'updateUser'])->name('admin.update');
+Route::get('/admin/delete/admin/{id}', [UserRoleController::class, 'deleteUser'])->name('admin.delete');
 
 
 

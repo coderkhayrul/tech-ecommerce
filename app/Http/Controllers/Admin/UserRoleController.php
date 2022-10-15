@@ -53,4 +53,49 @@ class UserRoleController extends Controller
         );
         return Redirect()->route('admin.all.users')->with($notification);
     }
+
+    public function deleteUser($id)
+    {
+        DB::table('admins')->where('id', $id)->delete();
+        $notification = array(
+            'message' => 'Child Admin Delete Successfully',
+            'alert-type' => 'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
+
+    public function editUser($id)
+    {
+        $user = DB::table('admins')->where('id', $id)->first();
+        return view('admin.role.edit_role', compact('user'));
+
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user  = array();
+        $user['name'] = $request->name;
+        $user['phone'] = $request->phone;
+        $user['email'] = $request->email;
+        $user['category'] = $request->category;
+        $user['coupon'] = $request->coupon;
+        $user['product'] = $request->product;
+        $user['order'] = $request->order;
+        $user['other'] = $request->other;
+        $user['report'] = $request->report;
+        $user['role'] = $request->role;
+        $user['return'] = $request->return;
+        $user['contact'] = $request->contact;
+        $user['comment'] = $request->comment;
+        $user['setting'] = $request->setting;
+        $user['blog'] = $request->blog;
+
+        DB::table('admins')->where('id', $id)->update($user);
+        $notification = array(
+            'message' => 'Child Admin Update Successfully',
+            'alert-type' => 'success'
+        );
+        return Redirect()->route('admin.all.users')->with($notification);
+
+    }
 }
