@@ -70,7 +70,7 @@
                 <nav class="nav">
                     <div class="dropdown">
                         <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                            <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
+                            <span class="logged-name">{{ Auth::user()->name }}</span>
                             <img src="{{ asset('backend') }}/img/img3.jpg" class="wd-32 rounded-circle" alt="">
                         </a>
                         <div class="dropdown-menu dropdown-menu-header wd-200">
