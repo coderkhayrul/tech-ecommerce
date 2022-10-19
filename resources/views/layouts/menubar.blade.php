@@ -89,7 +89,7 @@ $categories = DB::table('categories')->get();
                                 </ul>
                             </li>
                             <li><a href="{{ route('blog.post') }}">Blog<i class="fas fa-chevron-down"></i></a></li>
-                            <li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="{{ route('web.contact.page') }}">Contact<i class="fas fa-chevron-down"></i></a></li>
                         </ul>
                     </div>
 

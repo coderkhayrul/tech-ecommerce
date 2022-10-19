@@ -74,8 +74,7 @@
                     </div>
                     <ul class="list-group list-group-flash text-center">
                         <li class="list-group-item"><a href="{{ route('web.password.change') }}">Change Password</a></li>
-                        <li class="list-group-item"><a href="">Change Password</a></li>
-                        <li class="list-group-item"><a href="">Change Password</a></li>
+                        <li class="list-group-item"><a href="">Order Manage</a></li>
                         <li class="list-group-item">
                             <a href="{{ route('user.logout') }}" class="btn btn-danger btn-block">Logout</a>
                         </li>

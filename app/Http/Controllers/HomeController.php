@@ -72,7 +72,7 @@ class HomeController extends Controller
     /**
      * Logout Application Dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
     {

@@ -90,6 +90,9 @@
                                     <button type="submit" class="button cart_button">Add to Cart</button>
                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
                                 </div>
+                                <br>
+                                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                <div class="addthis_inline_share_toolbox"></div>
 
                             </form>
                         </div>
@@ -130,13 +133,21 @@
                             <br>{{ $product->video_link }}
                         </div>
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"><br>
-                            Product
-                            Reviews Show Here
+                            <div class="fb-comments" data-href="{{ Request::url() }}" data-width="" data-numposts="5">
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1251676138602871&autoLogAppEvents=1"
+        nonce="zmpbicIF"></script>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-634d7b8f9faa139d"></script>
+
 @endsection

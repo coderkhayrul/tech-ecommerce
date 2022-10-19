@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+@php
+    $site_setting = DB::table('sitesetting')->first();
+@endphp
 <head>
     <title>OneTech</title>
     <meta charset="utf-8">
@@ -25,11 +27,14 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/blog_single_styles.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/blog_single_responsive.css">
 
+{{--    Contact Style--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/contact_styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/contact_responsive.css">
     {{-- Toster --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     {{-- SweetAlert --}}
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script src="http://js.stripe.com/v3/"></script>
 </head>
 
@@ -49,11 +54,11 @@
                         <div class="col d-flex flex-row">
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon"><img src="{{ asset('frontend') }}/images/phone.png" alt="">
-                                </div>+38 068 005 3570
+                                </div>{{ $site_setting->phone_one }}
                             </div>
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon"><img src="{{ asset('frontend') }}/images/mail.png" alt="">
-                                </div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
+                                </div><a href="mailto:fastsales@gmail.com">{{ $site_setting->email }}</a>
                             </div>
                             <div class="top_bar_content ml-auto">
                                 @guest()
@@ -212,25 +217,22 @@
             <footer class="footer">
                 <div class="container">
                     <div class="row">
-
                         <div class="col-lg-3 footer_col">
                             <div class="footer_column footer_contact">
                                 <div class="logo_container">
-                                    <div class="logo"><a href="#">OneTech</a></div>
+                                    <div class="logo"><a href="#">{{ $site_setting->company_name }}</a></div>
                                 </div>
                                 <div class="footer_title">Got Question? Call Us 24/7</div>
-                                <div class="footer_phone">+38 068 005 3570</div>
+                                <div class="footer_phone">{{ $site_setting->phone_one }}</div>
                                 <div class="footer_contact_text">
-                                    <p>17 Princess Road, London</p>
-                                    <p>Grester London NW18JR, UK</p>
+                                    <p>{{ $site_setting->company_address }}</p>
                                 </div>
                                 <div class="footer_social">
                                     <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-google"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->facebook_link }}"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->twitter_link }}"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->youtube_link }}"><i class="fab fa-youtube"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->instragram_link }}"><i class="fab fa-instagram"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -321,6 +323,7 @@
                     </div>
                 </div>
             </div>
+        </header>
     </div>
 
 
@@ -368,6 +371,9 @@
     <script src="{{ asset('frontend') }}/js/product_custom.js"></script>
     <script src="{{ asset('frontend') }}/js/cart_custom.js"></script>
     <script src="{{ asset('frontend') }}/js/blog_single_custom.js"></script>
+    <script src="{{ asset('frontend') }}/plugins/easing/easing.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+    <script src="{{ asset('frontend') }}/js/contact_custom.js"></script>
 
     {{-- PRODUCT SHOW --}}
     <script src="{{ asset('frontend') }}/plugins/Isotope/isotope.pkgd.min.js"></script>
@@ -375,9 +381,6 @@
     <script src="{{ asset('frontend') }}/plugins/parallax-js-master/parallax.min.js"></script>
     {{-- Toster --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    {{-- SweetAlert --}}
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
 
     {{-- Toster Message Script --}}
     <script>
@@ -403,6 +406,28 @@
         @endif
 
     </script>
+
+    <script>
+        $(document).on("click", "#return", function(e) {
+            e.preventDefault();
+            var link = $(this).attr("href");
+            swal({
+                title: "Are you Want to Return?",
+                text: "Once Return, This will be return your Money!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href = link;
+                    } else {
+                        swal("Return Cancel!");
+                    }
+                });
+        });
+    </script>
+
 </body>
 
 </html>

@@ -18,9 +18,11 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WishlistController;
-use App\Models\SubCategory;
+use \App\Http\Controllers\Admin\SettingController;
+use \App\Http\Controllers\Admin\ReturnController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,11 +98,18 @@ Route::get('/payment', [CartController::class, 'paymentPage'])->name('payment.st
 Route::post('/payment/prosess', [PaymentController::class, 'payment'])->name('payment.prosess');
 Route::post('/stripe/charge', [PaymentController::class, 'stripeCharge'])->name('stripe.charge');
 
-// USER ORDER VIEW ROUTE
+// USER ORDER VIEW ROUTE LIST
 Route::get('/order-view/{id}', [HomeController::class, 'orderView'])->name('user.order.view');
 
-// USER ORDER TRAKING ROUTE
+// USER ORDER TRACKING ROUTE LIST
 Route::post('/order/tracking', [HomeController::class, 'orderTrack'])->name('user.order.tracking');
+
+// RETURN ORDER ROUTE LIST
+Route::get('/success/order', [PaymentController::class, 'successOrderList'])->name('web.success.order.list');
+Route::get('/product/return/{id}', [PaymentController::class, 'orderReturn'])->name('web.product.return');
+// RETURN ORDER ROUTE LIST
+Route::get('/contact', [ContactController::class, 'Contact'])->name('web.contact.page');
+Route::post('/contact', [ContactController::class, 'contactStore'])->name('web.contact.store');
 
 
 
@@ -138,43 +147,9 @@ Route::post('/admin/store/admin', [UserRoleController::class, 'storeUser'])->nam
 Route::get('/admin/edit/admin/{id}', [UserRoleController::class, 'editUser'])->name('admin.edit');
 Route::post('/admin/update/admin/{id}', [UserRoleController::class, 'updateUser'])->name('admin.update');
 Route::get('/admin/delete/admin/{id}', [UserRoleController::class, 'deleteUser'])->name('admin.delete');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//++++++++++++ ADMIN SITE SETTING ROUTE ++++++++++++++
+Route::get('/admin/site/setting', [SettingController::class, 'siteSetting'])->name('admin.site.setting');
+Route::post('/admin/site/setting', [SettingController::class, 'siteSettingUpdate'])->name('admin.site.setting.update');
 
 // <-++++++++++++++++++++ ADMIN BRAND ROUTE LIST +++++++++++++++++++++++++->
 
@@ -266,3 +241,15 @@ Route::get('/admin/search/report', [ReportController::class, 'searchReport'])->n
 Route::post('/admin/search/by/date', [ReportController::class, 'serachByDate'])->name('admin.search.by.date');
 Route::post('/admin/search/by/month', [ReportController::class, 'serachByMonth'])->name('admin.search.by.month');
 Route::post('/admin/search/by/year', [ReportController::class, 'serachByYear'])->name('admin.search.by.year');
+
+//RETURN ORDER ROUTE LIST
+Route::get('/admin/return/order', [ReturnController::class, 'returnOrder'])->name('admin.return.request');
+Route::get('/admin/return/order/update/{id}', [ReturnController::class, 'returnOrderUpdate'])->name('admin.product.return.update');
+Route::get('/admin/return/all', [ReturnController::class, 'returnAll'])->name('admin.all.return.request');
+
+
+// PRODUCT STOCK ROUTE LIST
+Route::get('/admin/product/stock', [UserRoleController::class, 'productStock'])->name('admin.product.stock');
+// CONTACT MESSAGE ROUTE LIST
+Route::get('/admin/contact/message', [AdminController::class, 'contactMessage'])->name('admin.all.message');
+Route::get('/admin/contact/show/{id}', [AdminController::class, 'showMessage'])->name('admin.show.message');

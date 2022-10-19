@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -121,5 +124,24 @@ class PaymentController extends Controller
         );
 
         return Redirect()->to('/')->with($notification);
+    }
+
+    public function successOrderList(): Factory|View|Application
+    {
+        $order = DB::table('orders')
+            ->where('user_id', Auth::user()->id)
+            ->where('status', 3)
+            ->orderBy('id', 'DESC')
+            ->limit(5)->get();
+        return view('pages.return_order', compact('order'));
+    }
+    public function orderReturn($id): string
+    {
+        DB::table('orders')->where('id', $id)->update(['return_order' => 1]);
+        $notification = array(
+            'message' => 'Return Order Request Sent!',
+            'alert-type' => 'success'
+        );
+        return Redirect()->back()->with($notification);
     }
 }

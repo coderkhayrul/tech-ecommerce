@@ -42,7 +42,7 @@ class OrderController extends Controller
         $data['status'] = 1;
         DB::table('orders')->where('id', $id)->update($data);
         $notification = array(
-            'messege' => 'Payment Accepted Successfully',
+            'message' => 'Payment Accepted Successfully',
             'alert-type' => 'success'
         );
         return Redirect()->route('admin.order.new')->with($notification);
@@ -54,7 +54,7 @@ class OrderController extends Controller
         $data['status'] = 4;
         DB::table('orders')->where('id', $id)->update($data);
         $notification = array(
-            'messege' => 'Order Cancelled',
+            'message' => 'Order Cancelled',
             'alert-type' => 'danger'
         );
         return Redirect()->back()->with($notification);
@@ -90,18 +90,22 @@ class OrderController extends Controller
         $data['status'] = 2;
         DB::table('orders')->where('id', $id)->update($data);
         $notification = array(
-            'messege' => 'Order Process Successfully',
+            'message' => 'Order Process Successfully',
             'alert-type' => 'success'
         );
         return Redirect()->route('admin.order.accept.list')->with($notification);
     }
     public function orderDeliveryUpdate($id)
     {
-        $data = array();
-        $data['status'] = 3;
-        DB::table('orders')->where('id', $id)->update($data);
+        $product = DB::table('orders_details')->where('order_id', $id)->get();
+        foreach ($product as $row) {
+            DB::table('products')
+                ->where('id', $row->product_id)
+                ->update(['product_quantity' => DB::raw('product_quantity - ' . $row->quantity)]);
+        }
+        DB::table('orders')->where('id', $id)->update(['status' => 3]);
         $notification = array(
-            'messege' => 'Order Delivery Successfully',
+            'message' => 'Order Delivery Successfully',
             'alert-type' => 'success'
         );
         return Redirect()->route('admin.order.accept.list')->with($notification);
@@ -114,7 +118,7 @@ class OrderController extends Controller
         DB::table('shipping')->where('order_id', $id)->delete();
 
         $notification = array(
-            'messege' => 'Order Delete Successfully',
+            'message' => 'Order Delete Successfully',
             'alert-type' => 'success'
         );
         return Redirect()->route('admin.order.cancel.list')->with($notification);

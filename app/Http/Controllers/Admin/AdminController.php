@@ -53,6 +53,11 @@ class AdminController extends Controller
         ); // returns Notification,
 
         return redirect()->back()->with($notification);
+    }
 
+    public function contactMessage()
+    {
+        $contact = DB::table('contact')->get();
+        return view('admin.contact.contact', compact('contact'));
     }
 }

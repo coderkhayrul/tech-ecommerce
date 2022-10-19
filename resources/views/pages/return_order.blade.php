@@ -1,14 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        $order = DB::table('orders')
-            ->where('user_id', Auth::user()->id)
-            ->orderBy('id', 'DESC')
-            ->get();
-
-    @endphp
-
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -19,7 +11,7 @@
                             <p class="m-0">Order # {{ $row->status_code }}</p>
                             <p class="m-0">
                                 <a href="{{ route('user.order.view', $row->id) }}" class="btn btn-sm btn-link"
-                                    style="text-decoration: none;">Manage</a>
+                                   style="text-decoration: none;">Manage</a>
                             </p>
                         </div>
                         @php
@@ -33,26 +25,22 @@
                             <div class="row border border-bottom p-1 d-flex align-items-center">
                                 <div class="col-md-2">
                                     <img class="img-responsive" src="{{ asset($detail->image_one) }}" alt=""
-                                        style="width: 100%; height:100%">
+                                          style="width: 100%; height:100%">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <p class="text-dark">{{ $detail->product_name }}</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <p>Qty: <strong class="text-dark">{{ $detail->quantity }}</strong></p>
                                 </div>
                                 <div class="col-md-2">
                                     <p>
-                                        @if ($row->status == 0)
-                                        <span class="badge badge-primary">Pending</span>
-                                        @elseif ($row->status == 1)
-                                            <span class="badge badge-info">Payment Accept</span>
-                                        @elseif ($row->status == 2)
-                                            <span class="badge badge-info">Progress</span>
-                                        @elseif ($row->status == 3)
-                                            <span class="badge badge-success">Delivered</span>
-                                        @else
-                                            <span class="badge badge-danger">Cancel</span>
+                                        @if ($row->return_order == 0)
+                                        <span class="badge badge-secondary">No Request</span>
+                                        @elseif ($row->return_order == 1)
+                                            <span class="badge badge-primary">Pending</span>
+                                        @elseif ($row->return_order == 2)
+                                            <span class="badge badge-success">Return Success</span>
                                         @endif
                                     </p>
                                 </div>
@@ -60,6 +48,13 @@
                                     <p class="text-dark">
                                         @if ($row->status == 3)
                                             03 Aug 2021
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <p class="text-dark">
+                                        @if ($row->return_order == 0)
+                                            <a href="{{ route('web.product.return',$row->id) }}" id="return" class="btn btn-danger btn-sm">Return</a>
                                         @endif
                                     </p>
                                 </div>
@@ -73,8 +68,7 @@
 
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-image-top mt-4" src="{{ asset('backend/img/img1.jpg') }}" alt=""
-                        style="height: 90px; width: 90px; margin-left: 35%;">
+                    <img class="card-image-top mt-4" src="{{ asset('backend/img/img1.jpg') }}" alt="" style="height: 90px; width: 90px; margin-left: 35%;">
                     <div class="card-body">
                         <h4 class="card-title text-center">{{ Auth::user()->name }}</h4>
                     </div>

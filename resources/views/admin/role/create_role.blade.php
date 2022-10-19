@@ -158,6 +158,15 @@
                                 </div>
                             </div>
                             <!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="ckbox">
+                                        <input type="checkbox" name="stock" value="1">
+                                        <span>Stock</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- col-4 -->
                         </div>
                         <!-- row -->
                         <br><br>

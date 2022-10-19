@@ -44,6 +44,7 @@ class UserRoleController extends Controller
         $data['comment'] = $request->comment;
         $data['setting'] = $request->setting;
         $data['blog'] = $request->blog;
+        $data['stock'] = $request->stock;
         $data['type'] = 2;
 
         DB::table('admins')->insert($data);
@@ -68,7 +69,6 @@ class UserRoleController extends Controller
     {
         $user = DB::table('admins')->where('id', $id)->first();
         return view('admin.role.edit_role', compact('user'));
-
     }
 
     public function updateUser(Request $request, $id)
@@ -89,6 +89,7 @@ class UserRoleController extends Controller
         $user['comment'] = $request->comment;
         $user['setting'] = $request->setting;
         $user['blog'] = $request->blog;
+        $user['stock'] = $request->stock;
 
         DB::table('admins')->where('id', $id)->update($user);
         $notification = array(
@@ -96,6 +97,15 @@ class UserRoleController extends Controller
             'alert-type' => 'success'
         );
         return Redirect()->route('admin.all.users')->with($notification);
+    }
 
+    public function productStock()
+    {
+        $product = DB::table('products')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->join('brands', 'products.brand_id', 'brands.id')
+            ->select('products.*', 'categories.category_name', 'brands.brand_name')
+            ->get();
+        return view('admin.stock.stock_list', compact('product'));
     }
 }
