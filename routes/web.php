@@ -82,9 +82,6 @@ Route::post('/cart/product/add/{id}', [App\Http\Controllers\ProductController::c
 Route::get('/product/{id}', [App\Http\Controllers\ProductController::class, 'productView'])->name('product.view');
 Route::get('/category/product/{id}', [App\Http\Controllers\ProductController::class, 'categoryView'])->name('category.product');
 
-
-
-
 // BLOG ROUTE LIST
 Route::get('/blog', [BlogController::class, 'blogPost'])->name('blog.post');
 Route::get('/blog/{id}', [BlogController::class, 'singleBlogPost'])->name('single.blog.post');
@@ -97,6 +94,7 @@ Route::get('/language/hindi', [BlogController::class, 'hindi'])->name('language.
 Route::get('/payment', [CartController::class, 'paymentPage'])->name('payment.step');
 Route::post('/payment/prosess', [PaymentController::class, 'payment'])->name('payment.prosess');
 Route::post('/stripe/charge', [PaymentController::class, 'stripeCharge'])->name('stripe.charge');
+Route::post('/oncash/charge', [PaymentController::class, 'onCashCharge'])->name('oncash.charge');
 
 // USER ORDER VIEW ROUTE LIST
 Route::get('/order-view/{id}', [HomeController::class, 'orderView'])->name('user.order.view');
@@ -179,6 +177,7 @@ Route::post('/admin/update/coupon/{id}', [CouponController::class, 'updatecoupon
 
 Route::get('/admin/sub/newslater', [CouponController::class, 'newslater'])->name('admin.newslater');
 Route::get('/admin/delete/newslater/{id}', [CouponController::class, 'deletenewslater'])->name('admin.delete.newslater');
+Route::delete('/admin/delete/newslater', [CouponController::class, 'allDelete'])->name('admin.newslater.alldelete');
 
 // <-++++++++++++++++++++ ADMIN PRODUCT ROUTE LIST +++++++++++++++++++++++++->
 Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.all.product');

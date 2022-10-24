@@ -212,8 +212,8 @@
                                             <img src="{{ asset('frontend/images/paypal.png') }}" alt=""
                                                 style="width: 100px; height: 60px;">
 
-                                            <input type="radio" name="payment" value="ideal">
-                                            <img src="{{ asset('frontend/images/mollie.png') }}" alt=""
+                                            <input type="radio" name="payment" value="oncash">
+                                            <img src="{{ asset('frontend/images/delivery.jpg') }}" alt=""
                                                 style="width: 100; height: 60px;">
                                         </li>
                                     </ul>
