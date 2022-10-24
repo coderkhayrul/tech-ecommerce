@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -203,5 +204,12 @@ class CartController extends Controller
     {
         $cart = Cart::content();
         return view('pages.payment', compact('cart'));
+    }
+
+    public function productSearch(Request $request)
+    {
+        $item = $request->search;
+        $products = Product::where('product_name', 'LIKE', "%$item%")->paginate(20);
+        return view('pages.search', compact('products'));
     }
 }

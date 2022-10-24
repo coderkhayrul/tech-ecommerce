@@ -31,8 +31,7 @@
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->phone }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-info" data-toggle="modal"
-                                       data-target="#MessageShow{{$row->id}}">View</a>
+                                    <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#MessageShow{{$row->id}}">View</a>
                                 </td>
                             </tr>
 

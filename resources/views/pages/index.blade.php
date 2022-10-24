@@ -69,7 +69,6 @@
 
                 <!-- Char. Item -->
                 <div class="col-lg-3 col-md-6 char_col">
-
                     <div class="char_item d-flex flex-row align-items-center justify-content-start">
                         <div class="char_icon"><img src="{{ asset('frontend') }}/images/char_3.png" alt=""></div>
                         <div class="char_content">

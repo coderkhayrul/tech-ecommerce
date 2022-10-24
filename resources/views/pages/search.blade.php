@@ -9,30 +9,29 @@
 
     <div class="home">
         <div class="home_background parallax-window" data-parallax="scroll"
-            data-image-src="{{ asset('frontend') }}/images/shop_background.jpg">
+             data-image-src="{{ asset('frontend') }}/images/shop_background.jpg">
         </div>
         <div class="home_overlay"></div>
         <div class="home_content d-flex flex-column align-items-center justify-content-center">
-            <h2 class="home_title">{{ $single_category->category_name }}</h2>
+            <h2 class="home_title">Search Product</h2>
         </div>
     </div>
 
     <!-- Shop -->
-
     <div class="shop">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-
+                @php
+                    $categories = App\Models\Category::orderBy('category_name','ASC')->get()
+                @endphp
                     <!-- Shop Sidebar -->
                     <div class="shop_sidebar">
                         <div class="sidebar_section">
                             <div class="sidebar_title">Categories</div>
                             <ul class="sidebar_categories">
                                 @foreach ($categories as $category)
-                                    <li><a
-                                            href="{{ route('category.product', $category->id) }}">{{ $category->category_name }}</a>
-                                    </li>
+                                    <li><a href="{{ route('category.product', $category->id) }}">{{ $category->category_name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -43,7 +42,7 @@
                                 <div id="slider-range" class="slider_range"></div>
                                 <p>Range: </p>
                                 <p><input type="text" id="amount" class="amount" readonly
-                                        style="border:0; font-weight:bold;"></p>
+                                style="border:0; font-weight:bold;"></p>
                             </div>
                         </div>
                         <div class="sidebar_section">
@@ -54,18 +53,20 @@
                                 <li class="color"><a href="#" style="background: #999999;"></a></li>
                                 <li class="color"><a href="#" style="background: #0e8ce4;"></a></li>
                                 <li class="color"><a href="#" style="background: #df3b3b;"></a></li>
-                                <li class="color"><a href="#"
-                                        style="background: #ffffff; border: solid 1px #e1e1e1;"></a>
+                                <li class="color"><a href="#" style="background: #ffffff; border: solid 1px #e1e1e1;"></a>
                                 </li>
                             </ul>
                         </div>
+                        @php
+                            $brands = App\Models\Brand::orderBy('brand_name','ASC')->get()
+                        @endphp
                         <div class="sidebar_section">
                             <div class="sidebar_subtitle brands_subtitle">Brands</div>
                             <ul class="brands_list">
                                 @foreach ($brands as $brand)
                                     @php
                                         $brand = DB::table('brands')
-                                            ->where('id', $brand->brand_id)
+                                            ->where('id', $brand->id)
                                             ->first();
                                     @endphp
                                     <li class="brand"><a href="#">{{ $brand->brand_name }}</a></li>

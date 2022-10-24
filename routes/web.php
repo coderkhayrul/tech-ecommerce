@@ -110,15 +110,15 @@ Route::get('/product/return/{id}', [PaymentController::class, 'orderReturn'])->n
 // RETURN ORDER ROUTE LIST
 Route::get('/contact', [ContactController::class, 'Contact'])->name('web.contact.page');
 Route::post('/contact', [ContactController::class, 'contactStore'])->name('web.contact.store');
+//Product Search Route
 
-
-
+Route::post('/search', [CartController::class, 'productSearch'])->name('web.product.search');
 
 // -----------------------------------------------------------
 // <------------------- ADMIN ROUTE LIST -------------------->
 // -----------------------------------------------------------
 
-Route::get('admin/home', [AdminController::class, 'index']);
+Route::get('admin/dashboard', [AdminController::class, 'index']);
 Route::get('/admin', [LoginController::class, 'showLoginFrom'])->name('admin.login');
 Route::post('/admin', [LoginController::class, 'login']);
 

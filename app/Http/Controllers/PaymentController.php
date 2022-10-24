@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvoiceMail;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
@@ -46,6 +48,7 @@ class PaymentController extends Controller
 
     public function stripeCharge(Request $request)
     {
+        $email = Auth::user()->email;
         $total = $request->total;
         $customer = Auth::user()->name;
         // Set your secret key. Remember to switch to your live secret key in production.
@@ -86,6 +89,9 @@ class PaymentController extends Controller
         $data['month'] = Carbon::now()->format('F');
         $data['year'] = Carbon::now()->format('Y');
         $order_id = DB::table('orders')->insertGetId($data);
+
+        // SENT EMAIL TO USER FOR INVOICE
+        Mail::to($email)->send(new InvoiceMail($data));
 
         // INSERT SHIPPING DATA INTO DATABASE
         $shipping = array();

@@ -3,6 +3,7 @@
 @php
     $site_setting = DB::table('sitesetting')->first();
 @endphp
+
 <head>
     <title>OneTech</title>
     <meta charset="utf-8">
@@ -27,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/blog_single_styles.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/blog_single_responsive.css">
 
-{{--    Contact Style--}}
+    {{--    Contact Style --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/contact_styles.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/contact_responsive.css">
     {{-- Toster --}}
@@ -53,16 +54,18 @@
                     <div class="row">
                         <div class="col d-flex flex-row">
                             <div class="top_bar_contact_item">
-                                <div class="top_bar_icon"><img src="{{ asset('frontend') }}/images/phone.png" alt="">
+                                <div class="top_bar_icon"><img src="{{ asset('frontend') }}/images/phone.png"
+                                        alt="">
                                 </div>{{ $site_setting->phone_one }}
                             </div>
                             <div class="top_bar_contact_item">
-                                <div class="top_bar_icon"><img src="{{ asset('frontend') }}/images/mail.png" alt="">
+                                <div class="top_bar_icon"><img src="{{ asset('frontend') }}/images/mail.png"
+                                        alt="">
                                 </div><a href="mailto:fastsales@gmail.com">{{ $site_setting->email }}</a>
                             </div>
                             <div class="top_bar_content ml-auto">
                                 @guest()
-                                @elseauth()
+                                    @elseauth()
                                     <div class="top_bar_menu">
                                         <ul class="standard_dropdown top_bar_dropdown">
                                             <li>
@@ -78,41 +81,42 @@
                                 <div class="top_bar_menu">
                                     <ul class="standard_dropdown top_bar_dropdown">
                                         @php
-                                        $language = Session::get('lang');
+                                            $language = Session::get('lang');
                                         @endphp
                                         <li>
                                             @if (Session::get('lang') == 'hindi')
-                                            <a href="{{ route('language.english') }}">English
-                                                <i class="fas fa-chevron-down"></i>
-                                            </a>
+                                                <a href="{{ route('language.english') }}">English
+                                                    <i class="fas fa-chevron-down"></i>
+                                                </a>
                                             @else
-                                            <a href="{{ route('language.hindi') }}">Hindi
-                                                <i class="fas fa-chevron-down"></i>
-                                            </a>
+                                                <a href="{{ route('language.hindi') }}">Hindi
+                                                    <i class="fas fa-chevron-down"></i>
+                                                </a>
                                             @endif
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="top_bar_user">
                                     @guest
-                                    <div class="user_icon"><img src="{{ asset('frontend') }}/images/user.svg" alt="">
-                                    </div>
-                                    <div><a href="{{ route('login') }}">Register/ Login</a></div>
+                                        <div class="user_icon"><img src="{{ asset('frontend') }}/images/user.svg"
+                                                alt="">
+                                        </div>
+                                        <div><a href="{{ route('login') }}">Register/ Login</a></div>
                                     @else
-                                    <ul class="standard_dropdown top_bar_dropdown">
-                                        <li>
-                                            <a href="{{ route('home') }}">
-                                                <div class="user_icon"><img
-                                                        src="{{ asset('frontend') }}/images/user.svg" alt="">
-                                                </div> Profile<i class="fas fa-chevron-down"></i>
-                                            </a>
-                                            <ul>
-                                                <li><a href="{{ route('user.wishlish') }}">Wishlist</a></li>
-                                                <li><a href="{{ route('user.checkout') }}">Checkout</a></li>
-                                                <li><a href="{{ 'home' }}">My Order</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                        <ul class="standard_dropdown top_bar_dropdown">
+                                            <li>
+                                                <a href="{{ route('home') }}">
+                                                    <div class="user_icon"><img
+                                                            src="{{ asset('frontend') }}/images/user.svg" alt="">
+                                                    </div> Profile<i class="fas fa-chevron-down"></i>
+                                                </a>
+                                                <ul>
+                                                    <li><a href="{{ route('user.wishlish') }}">Wishlist</a></li>
+                                                    <li><a href="{{ route('user.checkout') }}">Checkout</a></li>
+                                                    <li><a href="{{ 'home' }}">My Order</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     @endguest
                                 </div>
                             </div>
@@ -126,7 +130,6 @@
             <div class="header_main">
                 <div class="container">
                     <div class="row">
-
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-3 col-3 order-1">
                             <div class="logo_container">
@@ -135,14 +138,17 @@
                             </div>
                         </div>
                         @php
-                        $categories = DB::table('categories')->get();
+                            $categories = \Illuminate\Support\Facades\DB::table('categories')->get();
                         @endphp
                         <!-- Search -->
                         <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
                             <div class="header_search">
                                 <div class="header_search_content">
                                     <div class="header_search_form_container">
-                                        <form action="#" class="header_search_form clearfix">
+
+                                        <form action="{{ route('web.product.search') }}"
+                                            class="header_search_form clearfix" method="POST">
+                                            @csrf
                                             <input type="search" required="required" class="header_search_input"
                                                 placeholder="Search for products...">
                                             <div class="custom_dropdown">
@@ -151,8 +157,11 @@
                                                     <i class="fas fa-chevron-down"></i>
                                                     <ul class="custom_list clc">
                                                         @foreach ($categories as $category)
-                                                        <li><a class="clc" href="#">{{ $category->category_name }}</a>
-                                                        </li>
+                                                            <input name="category_id" type="hidden"
+                                                                value="{{ $category->id }}">
+                                                            <li><a class="clc"
+                                                                    href="#">{{ $category->category_name }}</a>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -161,6 +170,7 @@
                                                 value="Submit"><img src="{{ asset('frontend') }}/images/search.png"
                                                     alt=""></button>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -171,20 +181,21 @@
                             <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                                 @guest
                                 @else
-                                @php
-                                $wishlist = DB::table('wishlists')
-                                ->where('user_id', Auth::id())
-                                ->get();
-                                @endphp
-                                <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                                    <div class="wishlist_icon"><img src="{{ asset('frontend') }}/images/heart.png"
-                                            alt=""></div>
-                                    <div class="wishlist_content">
-                                        <div class="wishlist_text"><a href="{{ route('user.wishlish') }}">Wishlist</a>
+                                    @php
+                                        $wishlist = DB::table('wishlists')
+                                            ->where('user_id', Auth::id())
+                                            ->get();
+                                    @endphp
+                                    <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                                        <div class="wishlist_icon"><img src="{{ asset('frontend') }}/images/heart.png"
+                                                alt=""></div>
+                                        <div class="wishlist_content">
+                                            <div class="wishlist_text"><a
+                                                    href="{{ route('user.wishlish') }}">Wishlist</a>
+                                            </div>
+                                            <div class="wishlist_count">{{ count($wishlist) }}</div>
                                         </div>
-                                        <div class="wishlist_count">{{ count($wishlist) }}</div>
                                     </div>
-                                </div>
                                 @endguest
 
                                 <!-- Cart -->
@@ -229,10 +240,14 @@
                                 </div>
                                 <div class="footer_social">
                                     <ul>
-                                        <li><a target="_blank" href="https://{{ $site_setting->facebook_link }}"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a target="_blank" href="https://{{ $site_setting->twitter_link }}"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a target="_blank" href="https://{{ $site_setting->youtube_link }}"><i class="fab fa-youtube"></i></a></li>
-                                        <li><a target="_blank" href="https://{{ $site_setting->instragram_link }}"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->facebook_link }}"><i
+                                                    class="fab fa-facebook-f"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->twitter_link }}"><i
+                                                    class="fab fa-twitter"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->youtube_link }}"><i
+                                                    class="fab fa-youtube"></i></a></li>
+                                        <li><a target="_blank" href="https://{{ $site_setting->instragram_link }}"><i
+                                                    class="fab fa-instagram"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -300,9 +315,8 @@
                                     Copyright &copy;
                                     <script>
                                         document.write(new Date().getFullYear());
-
-                                    </script> All rights reserved | This template is made with <i class="fa fa-heart"
-                                        aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                    </script> All rights reserved | This template is made with <i
+                                        class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
                                         target="_blank">Colorlib</a>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </div>
@@ -328,8 +342,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="orderTrakingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="orderTrakingModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -384,27 +398,26 @@
 
     {{-- Toster Message Script --}}
     <script>
-        @if(Session::has('message'))
-        var type = "{{ Session::get('alert-type', 'info') }}"
-        switch (type) {
-            case 'info':
-                toastr.info("{{ Session::get('message') }}")
-                break;
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}")
+                    break;
 
-            case 'success':
-                toastr.success("{{ Session::get('message') }}")
-                break;
+                case 'success':
+                    toastr.success("{{ Session::get('message') }}")
+                    break;
 
-            case 'warning':
-                toastr.warning("{{ Session::get('message') }}")
-                break;
+                case 'warning':
+                    toastr.warning("{{ Session::get('message') }}")
+                    break;
 
-            case 'error':
-                toastr.error("{{ Session::get('message') }}")
-                break;
-        }
+                case 'error':
+                    toastr.error("{{ Session::get('message') }}")
+                    break;
+            }
         @endif
-
     </script>
 
     <script>
@@ -412,12 +425,12 @@
             e.preventDefault();
             var link = $(this).attr("href");
             swal({
-                title: "Are you Want to Return?",
-                text: "Once Return, This will be return your Money!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
+                    title: "Are you Want to Return?",
+                    text: "Once Return, This will be return your Money!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
                 .then((willDelete) => {
                     if (willDelete) {
                         window.location.href = link;
