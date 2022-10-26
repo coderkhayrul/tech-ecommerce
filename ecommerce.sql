@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2022 at 10:26 PM
+-- Generation Time: Oct 26, 2022 at 08:30 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -248,6 +248,16 @@ CREATE TABLE `newslaters` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `newslaters`
+--
+
+INSERT INTO `newslaters` (`id`, `email`, `created_at`, `updated_at`) VALUES
+(4, 'taze@mailinator.com', NULL, NULL),
+(5, 'majenelifu@mailinator.com', NULL, NULL),
+(6, 'mixuqyrebe@mailinator.com', NULL, NULL),
+(7, 'kabehu@mailinator.com', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -379,7 +389,9 @@ INSERT INTO `orders` (`id`, `user_id`, `payment_id`, `status_code`, `paying_amou
 (7, '3', 'card_1LoxNVJ1VeIVckU3AD8cO66d', '63fb56d56d6a1', '77800', 'txn_3LoxNWJ1VeIVckU31Q8HiyJf', '633b65e23353a', '758.00', '15', '15', '778', '4', '0', 'stripe', 'October', '03-10-22', '2022', NULL, NULL),
 (8, '3', 'card_1LoxRPJ1VeIVckU3IyIETpJy', '633b66d56d6a1', '87000', 'txn_3LoxRQJ1VeIVckU30EP4JgRo', '633b66d3c464c', '850.00', '15', '15', '870', '3', '2', 'stripe', 'October', '03-10-22', '2022', NULL, NULL),
 (9, '2', 'card_1LpfU0J1VeIVckU38hd4gvPf', '633dfc2252d91', '87000', 'txn_3LpfU2J1VeIVckU30s2hL7Aw', '633dfc20737de', '845', '15', '15', '870', '3', '0', 'stripe', 'October', '05-10-22', '2022', NULL, NULL),
-(10, '2', 'card_1Lpk4FJ1VeIVckU3nmboMuzq', '633e40f88b5f4', '97600', 'txn_3Lpk4HJ1VeIVckU31pjJm4wG', '633e40f6ae61b', '951', '15', '15', '976', '3', '0', 'stripe', 'October', '06-10-22', '2022', NULL, NULL);
+(10, '2', 'card_1Lpk4FJ1VeIVckU3nmboMuzq', '633e40f88b5f4', '97600', 'txn_3Lpk4HJ1VeIVckU31pjJm4wG', '633e40f6ae61b', '951', '15', '15', '976', '3', '0', 'stripe', 'October', '06-10-22', '2022', NULL, NULL),
+(11, '3', 'card_1LwNlTJ1VeIVckU3UYxpaxFW', '635666e194e76', '72000', 'txn_3LwNlUJ1VeIVckU31375v5Gn', '635666dfa0fb8', '700.00', '15', '15', '720', '0', '0', 'stripe', 'October', '24-10-22', '2022', NULL, NULL),
+(12, '3', NULL, '6356779ece5cc', NULL, NULL, NULL, '946', '15', '15', '976', '0', '0', 'oncash', 'October', '24-10-22', '2022', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -410,7 +422,9 @@ INSERT INTO `orders_details` (`id`, `order_id`, `product_id`, `product_name`, `c
 (9, 7, 3, 'New Product', 'red', 'm', '1', '758', '758', NULL, NULL),
 (10, 8, 4, 'Mans T-sharts', 'red', 's', '1', '850', '850', NULL, NULL),
 (11, 9, 4, 'Mans T-sharts', 'red', 's', '1', '850', '850', NULL, NULL),
-(12, 10, 8, 'Ladis Drash', 'yellow', 's', '1', '956', '956', NULL, NULL);
+(12, 10, 8, 'Ladis Drash', 'yellow', 's', '1', '956', '956', NULL, NULL),
+(13, 11, 10, 'woman top collection', NULL, NULL, '1', '700', '700', NULL, NULL),
+(14, 12, 8, 'Ladis Drash', 'yellow', 'm', '1', '956', '956', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -618,7 +632,9 @@ INSERT INTO `shipping` (`id`, `order_id`, `ship_name`, `ship_phone`, `ship_email
 (7, 7, 'Karyn Hobbs', '+1 (256) 455-7287', 'cesyj@mailinator.com', '121 lampost road', 'London', NULL, NULL),
 (8, 8, 'Fallon Crane', '+1 (312) 584-1216', 'tixyw@mailinator.com', 'Est rerum aut cupida', 'Ducimus enim error', NULL, NULL),
 (9, 9, 'Ulric Nelson', '+1 (731) 908-6732', 'soniq@mailinator.com', 'Necessitatibus incid', 'Magnam voluptas cons', NULL, NULL),
-(10, 10, 'Erich Finley', '+1 (197) 374-8959', 'wyzugytyfe@mailinator.com', 'Quidem natus numquam', 'Facilis aut at totam', NULL, NULL);
+(10, 10, 'Erich Finley', '+1 (197) 374-8959', 'wyzugytyfe@mailinator.com', 'Quidem natus numquam', 'Facilis aut at totam', NULL, NULL),
+(11, 11, 'Brenna Meyer', '01303132067', 'cynosez@mailinator.com', 'Araihazar, Narayangonj, Dhaka-1450', 'Dhaka', NULL, NULL),
+(12, 12, 'Bevis Walton', '+1 (711) 141-5627', 'neweqi@mailinator.com', 'Similique saepe in q', 'Facere pariatur Off', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -963,7 +979,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `newslaters`
 --
 ALTER TABLE `newslaters`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -981,13 +997,13 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `orders_details`
 --
 ALTER TABLE `orders_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1029,7 +1045,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `shipping`
 --
 ALTER TABLE `shipping`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `sitesetting`
